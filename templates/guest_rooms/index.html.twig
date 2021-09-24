@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clos de l'Epinay - Chambres d'hôtes{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="home-message text-center px-5 pt-5">
+        {% for guestRoom in guest_rooms %}
+            {% if loop.last %}
+                <h1>{{ guestRoom.title }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-outline btn-floating rounded-circle"
+                           href={{ path('guest_rooms_edit', {'id': guestRoom.id}) }} >
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                    {% endif %}
+                </h1>
+                <p>
+                    {{ guestRoom.message }}
+                </p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container-fluid g-0 px-5">
+        <h2 class="text-center p-5">Disponibilités</h2>
+        <div class="row">
+            <div class="col-lg-4 offset-lg-1" id="calendar-holder"></div>
+            <div class="col-lg-4 offset-lg-2">
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('booking_new') }}" class="btn btn-success my-3">Ajouter une réservation</a>
+                {% endif %}
+                <p class="fw-bold">Pour toute réservation merci de nous contacter aux numéros suivants : </br>02 47 52 61 90 - 06 82 12 28 88. </br> Vous pouvez vérifier les disponibilités grace au calendrier.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid px-5 pt-5">
+        <div class="row g-0">
+            <div class="col-lg-6 px-5">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070964.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-6">
+                <div class="card-body">
+                    <h5 class="card-title">Chambre Rosemarie</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <ul>
+                        <li>Quisque et quam eget</li>
+                        <li>Duis facilisis commodo est</li>
+                        <li>Pellentesque lobortis vestibulum pharetra</li>
+                        <li>Nunc condimentum vel nulla sit amet aliquet</li>
+                        <li>Integer pretium turpis ac risu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5 px-5">
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070962.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070967.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070960.jpg') }}" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid px-5 pt-5">
+        <div class="row g-0">
+            <div class="col-lg-6 px-5">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070968.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-6">
+                <div class="card-body">
+                    <h5 class="card-title">Chambre Diane</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <ul>
+                        <li>Quisque et quam eget</li>
+                        <li>Duis facilisis commodo est</li>
+                        <li>Pellentesque lobortis vestibulum pharetra</li>
+                        <li>Nunc condimentum vel nulla sit amet aliquet</li>
+                        <li>Integer pretium turpis ac risu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5 px-5">
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070969.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070970.jpg') }}" alt="...">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid img-thumbnail" src="{{ asset('P1070973.jpg') }}" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            let calendarEl = document.getElementById('calendar-holder');
+
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: true,
+                locale: 'fr',
+                themeSystem: 'bootstrap',
+                firstDay: 1,
+                eventSources: [
+                    {
+                        url: "{{ path('fc_load_events') }}",
+                        method: "POST",
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            // alert("There was an error while fetching FullCalendar!");
+                        },
+                    },
+                ],
+                headerToolbar: {
+                    left: 'title',
+                    center: 'prev,next,today',
+                    right: 'dayGridMonth,timeGridWeek',
+                },
+                titleFormat: {
+                    month: 'long',
+                    year: 'numeric'
+                },
+                buttonText: {
+                    today: 'Aujourd\'hui'
+                },
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'Europe/Paris',
+                displayEventTime : false
+            });
+            calendar.render();
+        });
+    </script>
+{% endblock %}

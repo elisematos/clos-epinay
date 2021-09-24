@@ -1,0 +1,48 @@
+footer {
+    background-color: white;
+    color: black;
+}
+
+a {
+    color: black;
+    padding: 1em 1.5em;
+    text-decoration: none;
+}
+
+a:hover, i:hover {
+    color: grey;
+}
+
+body, html {
+    height: 100%;
+}
+
+.home-image {
+    /* The image used */
+    background-image: url("P1100722.JPG");
+
+    /* mid height */
+    height: 50%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.guest-rooms-image {
+    /* The image used */
+    background-image: url("vineyard-4463939_1920.jpg");
+
+    /* mid height */
+    height: 50%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.portrait-image {
+    height: 50%;
+}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier message{% endblock %}
+
+{% block body %}
+    <div class="p-5">
+        <h1 class="text-center">Modifier le message des chambres d'hôtes</h1>
+        {{ include('guest_rooms/_form.html.twig', {'button_label': 'ENREGISTRER'}) }}
+    </div>
+{% endblock %}

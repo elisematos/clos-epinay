@@ -1,0 +1,12 @@
+<div class="container p-5 border border-light rounded-lg">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">{{ form_row(form.title) }}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{ form_row(form.message) }}</div>
+    </div>
+    {{ form_widget(form) }}
+    <button class="btn btn-success text-uppercase mt-3">{{ button_label|default('enregister') }}</button>
+    {{ form_end(form) }}
+</div>

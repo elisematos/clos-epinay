@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Booking{% endblock %}
+
+{% block body %}
+    <div class="p-5 container-fluid">
+        <div class="row">
+            <div class="col-md-3 offset-md-3 col-lg-4 offset-lg-4">
+                <h1 class="text-center">Nouvelle réservation</h1>
+                {{ include('booking/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

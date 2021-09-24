@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clos de l'Epinay - Accueil{% endblock %}
+
+{% block body %}
+    <div class="home-image flex-shrink-0"></div>
+    <div class="text-center px-5 pt-5">
+        {% for home in homes %}
+            {% if loop.last %}
+                <h2>{{ home.title }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-outline btn-floating rounded-circle"
+                           href={{ path('home_edit', {'id': home.id}) }} ><i class="bi bi-pencil-fill"></i>
+                        </a>
+                    {% endif %}
+                </h2>
+                <p>
+                    {{ home.message }}
+                </p>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
